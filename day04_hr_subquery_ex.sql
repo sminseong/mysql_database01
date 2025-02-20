@@ -28,7 +28,7 @@ SELECT e.last_name
        , (SELECT l.city FROM locations l WHERE l.location_id = (SELECT d.location_id FROM departments d WHERE d.department_id = e.department_id)) '도시명'
 FROM employees e
 WHERE e.department_id in (SELECT d.department_id FROM departments d WHERE d.location_id = (SELECT l.location_id FROM locations l WHERE l.city = 'Seattle')) 
-      AND e.commission_pct IS NULL;
+      AND e.commission_pct IS NULL; -- IS NOT NULL
 
 -- LAST_NAME 이 DAVIES 인 사람보다 후에 고용된 사원들의 LAST_NAME 및 HIRE_DATE 을 조회한다.
 SELECT last_name, hire_date
@@ -38,7 +38,7 @@ WHERE hire_date > (SELECT hire_date FROM employees WHERE last_name = 'DAVIES');
 -- 매니저로 근무하는 사원들의 총 수를 조회한다.
 SELECT COUNT(DISTINCT e1.employee_id) AS 매니저수
 FROM employees e1
-WHERE e1.employee_id IN (SELECT e1.employee_id FROM employees e2 WHERE e2.manager_id = e1.employee_id);
+WHERE e1.employee_id in (SELECT e1.employee_id FROM employees e2 WHERE e2.manager_id = e1.employee_id);
 
 -- LAST_NAME 이 Zlotkey 와 동일한 부서에 근무하는 모든 사원들의 사번 및 고용날짜를 조회한다.
 SELECT employee_id, hire_date
